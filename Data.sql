@@ -95,3 +95,12 @@ VALUES  ( N'Anh' , -- UserName - nvarchar(100)
         )
 GO
 SELECT * FROM dbo.Account
+
+"CREATE PROC USP_Login
+@userName nvarchar(100), @passWord nvarchar(100)
+AS
+BEGIN
+
+    SELECT * FROM dbo.Account WHERE UserName = @userName AND PassWord = @passWord
+END
+GO"
