@@ -96,11 +96,35 @@ VALUES  ( N'Anh' , -- UserName - nvarchar(100)
 GO
 SELECT * FROM dbo.Account
 
-"CREATE PROC USP_Login
+CREATE PROC USP_Login
 @userName nvarchar(100), @passWord nvarchar(100)
 AS
 BEGIN
 
     SELECT * FROM dbo.Account WHERE UserName = @userName AND PassWord = @passWord
 END
-GO"
+GO
+
+
+
+DECLARE @i INT = 0
+
+WHILE @i <= 20
+BEGIN
+	INSERT dbo.TableFood
+        ( id, name, status )
+VALUES  ( @i, -- id - int
+          N'Bàn '+ CAST(@i AS nvarchar(100)), -- name - nvarchar(100)
+          N'Trống'  -- status - nvarchar(100)
+          )
+	SET @i = @i + 1
+END
+
+CREATE PROC USP_GetTableList
+AS SELECT * FROM dbo.TableFood
+GO
+
+
+--thủ tục lấy table list
+
+		 
