@@ -13,7 +13,7 @@ GO
 
 CREATE TABLE TableFood
 (
-	id INT IDENTITY PRIMARY KEY,
+	id INT PRIMARY KEY,
 	name NVARCHAR(100) NOT NULL DEFAULT N'Bàn chưa có tên',
 	status NVARCHAR(100) NOT NULL DEFAULT N'trống'	-- Tr?ng || Có ngu?i
 )
@@ -30,16 +30,16 @@ GO
 
 CREATE TABLE FoodCategory
 (
-	id INT IDENTITY PRIMARY KEY,
+	id NVARCHAR(10)  PRIMARY KEY,
 	name NVARCHAR(100) NOT NULL DEFAULT N'Chua d?t tên'
 )
 GO
 
 CREATE TABLE Food
 (
-	id INT IDENTITY PRIMARY KEY,
+	id NVARCHAR(10)  PRIMARY KEY,
 	name NVARCHAR(100) NOT NULL DEFAULT N'chưa đặt tên',
-	idCategory INT NOT NULL,
+	idCategory NVARCHAR(10) NOT NULL,
 	price FLOAT NOT NULL DEFAULT 0
 	
 	FOREIGN KEY (idCategory) REFERENCES dbo.FoodCategory(id)
@@ -48,7 +48,7 @@ GO
 
 CREATE TABLE Bill
 (
-	id INT IDENTITY PRIMARY KEY,
+	id NVARCHAR(10)  PRIMARY KEY,
 	DateCheckIn DATE NOT NULL DEFAULT GETDATE(),
 	DateCheckOut DATE,
 	idTable INT NOT NULL,
@@ -60,9 +60,9 @@ GO
 
 CREATE TABLE BillInfo
 (
-	id INT IDENTITY PRIMARY KEY,
-	idBill INT NOT NULL,
-	idFood INT NOT NULL,
+	id NVARCHAR(10)  PRIMARY KEY,
+	idBill NVARCHAR(10) NOT NULL,
+	idFood NVARCHAR(10) NOT NULL,
 	count INT NOT NULL DEFAULT 0
 	
 	FOREIGN KEY (idBill) REFERENCES dbo.Bill(id),
@@ -96,7 +96,7 @@ VALUES  ( N'Anh' , -- UserName - nvarchar(100)
 GO
 SELECT * FROM dbo.Account
 
-CREATE PROC USP_Login
+CREATE PROC USP_Login 
 @userName nvarchar(100), @passWord nvarchar(100)
 AS
 BEGIN
@@ -124,7 +124,10 @@ CREATE PROC USP_GetTableList
 AS SELECT * FROM dbo.TableFood
 GO
 
-
+CREATE PROC	USP_getFoodCategory AS BEGIN
+           	                       		SELECT * FROM dbo.FoodCategory
+           	                       END
+								   Go
 --thủ tục lấy table list
 
 		 
