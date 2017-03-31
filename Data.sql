@@ -4,12 +4,6 @@ GO
 USE RoverCafe
 GO
 
--- Food
--- Table
--- FoodCategory
--- Account
--- Bill
--- BillInfo
 
 CREATE TABLE TableFood
 (
@@ -48,23 +42,23 @@ GO
 
 CREATE TABLE Bill
 (
-	id NVARCHAR(10)  PRIMARY KEY,
+	id int IDENTITY PRIMARY KEY,
 	DateCheckIn DATE NOT NULL DEFAULT GETDATE(),
-	DateCheckOut DATE,
 	idTable INT NOT NULL,
-	status INT NOT NULL DEFAULT 0 -- 1: dã thanh toán && 0: chua thanh toán
-	
+	discount INT NOT NULL
+		
 	FOREIGN KEY (idTable) REFERENCES dbo.TableFood(id)
 )
 GO
 
-CREATE TABLE BillInfo
+CREATE TABLE BillInfor
 (
-	id NVARCHAR(10)  PRIMARY KEY,
-	idBill NVARCHAR(10) NOT NULL,
+	id int IDENTITY  PRIMARY KEY,
+	idBill INT NOT NULL,
 	idFood NVARCHAR(10) NOT NULL,
-	count INT NOT NULL DEFAULT 0
-	
+	quantity INT NOT NULL DEFAULT 0,
+	discount INT NOT NULL DEFAULT 0
+
 	FOREIGN KEY (idBill) REFERENCES dbo.Bill(id),
 	FOREIGN KEY (idFood) REFERENCES dbo.Food(id)
 )
@@ -96,7 +90,7 @@ VALUES  ( N'Anh' , -- UserName - nvarchar(100)
 GO
 SELECT * FROM dbo.Account
 
-CREATE PROC USP_Login 
+CREATE PROC proc_Login 
 @userName nvarchar(100), @passWord nvarchar(100)
 AS
 BEGIN
@@ -120,14 +114,19 @@ VALUES  ( @i, -- id - int
 	SET @i = @i + 1
 END
 
-CREATE PROC USP_GetTableList
+CREATE PROC proc_GetTableList
 AS SELECT * FROM dbo.TableFood
 GO
 
-CREATE PROC	USP_getFoodCategory AS BEGIN
+
+CREATE PROC	proc_GetFoodCategory AS BEGIN
            	                       		SELECT * FROM dbo.FoodCategory
            	                       END
-								   Go
+CREATE PROC proc_ShowFoodByFoodCategoryId (@id Varchar(30))
+AS 
+BEGIN SELECT *FROM dbo.Food WHERE idCategory =@id END
 --thủ tục lấy table list
 
-		 
+CREATE PROC proc_ShowAllFood
+AS
+BEGIN SELECT * FROM dbo.Food end
