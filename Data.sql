@@ -39,18 +39,16 @@ CREATE TABLE Food
 	FOREIGN KEY (idCategory) REFERENCES dbo.FoodCategory(id)
 )
 GO
-
 CREATE TABLE Bill
 (
 	id int IDENTITY PRIMARY KEY,
-	DateCheckIn DATETIME NOT NULL DEFAULT GETDATE(),
+	DateCheckIn SMALLDATETIME NOT NULL DEFAULT GETDATE(),
 	idTable INT NOT NULL,
 	discount INT NOT NULL
 		
 	FOREIGN KEY (idTable) REFERENCES dbo.TableFood(id)
 )
 GO
-
 CREATE TABLE BillInfor
 (
 	id int IDENTITY  PRIMARY KEY,
@@ -62,7 +60,7 @@ CREATE TABLE BillInfor
 	FOREIGN KEY (idBill) REFERENCES dbo.Bill(id),
 	FOREIGN KEY (idFood) REFERENCES dbo.Food(id)
 )
-GO
+go
 
 
 INSERT INTO dbo.Account
