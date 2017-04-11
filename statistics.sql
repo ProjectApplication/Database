@@ -28,7 +28,7 @@ WHERE B.DateCheckIn >= @dateBegin AND B.DateCheckIn <= @dateEnd
 		 GROUP BY B.id,B.DateCheckIn
 END
 EXEC dbo.proc_getSumPriceOfBill  @dateBegin = '2017-01-01', @dateEnd = '2017-01-24'
-
+DROP	PROC dbo.proc_getSumPriceOfBill
 --Lấy doanh thu theo tháng
 DROP	 PROC proc_getSumPriceOfBill
 
